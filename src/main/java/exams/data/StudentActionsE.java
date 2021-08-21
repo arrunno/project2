@@ -1,6 +1,6 @@
 package exams.data;
 
-public enum StudentActions {
+public enum StudentActionsE {
 
     REGISTER(1, "Registruotis"),
     LOGIN(2,"Prisijungti"),
@@ -11,7 +11,7 @@ public enum StudentActions {
     private int num;
     private String action;
 
-    StudentActions(int pNum, String pAction){
+    StudentActionsE(int pNum, String pAction){
         num = pNum;
         action = pAction;
     }

@@ -6,15 +6,14 @@ public class Exam implements Serializable {
     protected Integer id;
     protected String courseName;
     protected String type;
-    protected String examinationDate;
 
     public Exam(){}
 
-    public Exam(Integer id, String courseName, String type, String examinationDate) {
+    public Exam(Integer id, String courseName, String type) {
         this.id = id;
         this.courseName = courseName;
         this.type = type;
-        this.examinationDate = examinationDate;
+//        this.examinationDate = examinationDate;
     }
 
     public Integer getId() {
@@ -41,21 +40,12 @@ public class Exam implements Serializable {
         this.type = type;
     }
 
-    public String getExaminationDate() {
-        return examinationDate;
-    }
-
-    public void setExaminationDate(String examinationDate) {
-        this.examinationDate = examinationDate;
-    }
-
     @Override
     public String toString() {
         return "Exam{" +
                 "id=" + id +
                 ", courseName='" + courseName + '\'' +
                 ", type='" + type + '\'' +
-                ", examinationDate='" + examinationDate + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,8 @@
 package exams.service;
 
-import exams.data.IntructorsCredentialsData;
-import exams.data.StudentsCredentialsData;
+import exams.data.RegisteredUsers;
+import exams.data.Student;
+import exams.service.login.Login;
 import exams.utils.utils;
 
 import java.util.Map;
@@ -23,14 +24,14 @@ public class ActionProcessor {
         System.out.println("| 0 - Išeiti                        |");
         System.out.println("|___________________________________|");
 //        return utils.getInpInt(sc, "");
-//    }
+    }
 
-//    public static void processFirstMenu(Scanner sc, int userChoice){
+    public static void processFirstMenu(Scanner sc){
         int firstChoice = utils.getInpInt(sc, "");
         switch (firstChoice) {
-            case 1 -> userLogin(sc, "instructor");
-            case 2 -> userLogin(sc, "student");
-            case 3 -> userRegistration(sc);
+//            case 1 -> userLogin(sc, "instructor");
+//            case 2 -> userLogin(sc, "student");
+            case 3 -> studentRegistrationMenu(sc);
             case 0 -> System.exit(10);
             default -> {
                 clearScreen();
@@ -40,47 +41,89 @@ public class ActionProcessor {
         }
     }
 
-    public static void userRegistration(Scanner sc){
-        System.out.println("    Registracija      ");
-        System.out.println("Destytojus registruoja administratorius");
-        System.out.println("Studentams: ");
-        System.out.println("Iveskite per kableli Varda, Pavarde ir el pasta. Pvz: Vardenis,Pavardenis,var.pav@pastas.lt");
-        String newUserInfo = sc.nextLine();
-        ActionProcessor.registerUser(newUserInfo);
-    }
-
-    public static void registerUser(String newUserInfo){
-        System.out.println("patikrinti ar nera tokio ");
-        System.out.println("Irasyti i Faila");
-    }
-
-    public static void userLogin(Scanner sc, String userType){
-        Map<String, String> dataSource = userType.equals("instructor") ? IntructorsCredentialsData.getCredentials() : StudentsCredentialsData.getCredentials();
-        CredentialsProcessor crp = new CredentialsProcessor();
-        System.out.println("   Prisijungimas   ");
-        String email = utils.getInpString(sc, "Iveskite el. pasta:   ");
-        if(!crp.isEmailPresent(dataSource, email)) {
-            userNotFound(sc, userType, email);
+    public static void studentRegistrationMenu(Scanner sc) {
+        System.out.println("   Studento registracija   ");
+        System.out.println("Iveskite per kableli asmens koda, Varda ir Pavarde. Pvz: 76545654,Vardenis,Pavardenis ");
+        String[] newUserInfo = sc.nextLine().split(",");
+        if(newUserInfo.length != 3) {
+            System.out.println("Blogas ivedimas, bandykite dar kartą");
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            studentRegistrationMenu(sc);
         }
-        else {
-            String inputPwd = utils.getInpString(sc, "Įveskite slaptažodį");
-            if(crp.isPasswordRight(dataSource,email, inputPwd))
-                System.out.println("OK, go to usertypes menu");
-            else {
-                inputPwd = utils.getInpString(sc, "Neteisingas slaptažodis, Bandykite dar karta.");
-                if(crp.isPasswordRight(dataSource,email, inputPwd))
-                    System.out.println("OK, go to usertypes menu");
-                else{
-                    System.out.println("Slaptažodis neteisingas. Grįžtame į pagrindinį meniu");
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    startGUI(sc);
+        ActionProcessor.registerStudent(sc, newUserInfo);
+    }
+
+//    public void registerStudent(Scanner sc){
+//
+//        Student newStudent = getNewStudent(sc);
+//
+//    }
+
+    private Student getNewStudent(Scanner sc) {
+
+        return null;
+    }
+
+    public static void registerStudent(Scanner sc, String[] newUserInfo){
+        System.out.println("Studento registracija 2 ");
+        int studentId = Integer.parseInt(newUserInfo[0].trim());
+        if(!Login.userIdExists(studentId, Login.getRegisteredStudents())){
+            System.out.println("Iveskite slaptazodi:");
+            String password = sc.nextLine();
+            if(password.length() > 0){
+                System.out.println("Pakartokite slaptazodi:");
+                String password2 = sc.nextLine();
+                if(password.equals(password2)) {
+                    RegisteredUsers.registerStudent(studentId, newUserInfo[1], newUserInfo[2], password);
+                    System.out.println("Studentas sekmingai uzregistruotas");
+                    Student loggedInStudent = Login.getLoggedInStudent(studentId,password);
+                    chooseExam(sc,loggedInStudent);
+//                    System.out.println(RegisteredUsers.getRegisteredStudentsMap());
+                } else {
+                    System.out.println("slaptazodziai nesutapma, pakartokite slaptazodziu vedima");
+                    registerStudent( sc, newUserInfo);
+
                 }
             }
         }
+    }
+
+    public static void chooseExam(Scanner sc, Student student){
+        System.out.println("Prisijunges studentas: " + student.getName() + " " + student.getSurname());
+        System.out.println("Choose exam to take");
+    }
+
+    public static void userLogin(Scanner sc, String userType){
+//        Map<String, String> dataSource = userType.equals("instructor") ? IntructorsCredentialsData.getCredentials() : StudentsCredentialsData.getCredentials();
+//        CredentialsProcessor crp = new CredentialsProcessor();
+//        System.out.println("   Prisijungimas   ");
+//        String email = utils.getInpString(sc, "Iveskite el. pasta:   ");
+//        if(!crp.isEmailPresent(dataSource, email)) {
+//            userNotFound(sc, userType, email);
+//        }
+//        else {
+//            String inputPwd = utils.getInpString(sc, "Įveskite slaptažodį");
+//            if(crp.isPasswordRight(dataSource,email, inputPwd))
+//                System.out.println("OK, go to usertypes menu");
+//            else {
+//                inputPwd = utils.getInpString(sc, "Neteisingas slaptažodis, Bandykite dar karta.");
+//                if(crp.isPasswordRight(dataSource,email, inputPwd))
+//                    System.out.println("OK, go to usertypes menu");
+//                else{
+//                    System.out.println("Slaptažodis neteisingas. Grįžtame į pagrindinį meniu");
+//                    try {
+//                        Thread.sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    startGUI(sc);
+//                }
+//            }
+//        }
     }
 
     public static void rightEmailOrFirstMenu(Scanner sc, Map<String, String> dataSource, CredentialsProcessor crp) {
@@ -100,7 +143,7 @@ public class ActionProcessor {
         int userChoice = utils.getInpInt(sc,"");
         switch(userChoice){
             case 1 -> userLogin(sc,userType);
-            case 2 -> userRegistration(sc);
+            case 2 -> studentRegistrationMenu(sc);
             case 7 -> startGUI(sc);
             case 0 -> System.exit(10);
             default -> startGUI(sc);
@@ -117,7 +160,7 @@ public class ActionProcessor {
         System.out.println("| 0 - Išeiti                        |");
         System.out.println("|___________________________________|");
         String newUserInfo = sc.nextLine();
-        ActionProcessor.registerUser(newUserInfo);
+//        ActionProcessor.registerStudent(newUserInfo);
     }
 
     public static void showInstructorMenu2Results(Scanner sc){

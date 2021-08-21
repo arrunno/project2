@@ -1,5 +1,6 @@
 package exams.service.actions;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -14,29 +15,26 @@ import java.util.List;
 public class DataActions {
 
     private String pathToExamsDirectory;
-    private String pathToAnswersFile; // = "D:\\Arunas\\Documents\\Java_Studijos\\Project2_Exams\\Answers";
+    private String pathToAnswersFile;
     private ExamAndAnswers examAndAnswers;
-
 
     public DataActions(String pathToExamsDirectory, String pathToAnswersFile) {
         this.pathToExamsDirectory = pathToExamsDirectory;
         this.pathToAnswersFile = pathToAnswersFile;
     }
 
-    public ExamAndAnswers readExamAnswersData(){
+    public void setPathToAnswersFile(String pathToAnswersFile) {
+        this.pathToAnswersFile = pathToAnswersFile;
+    }
+
+    public ExamAndAnswers readExamAndAnswers(){
         ObjectMapper mapper= new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
         File examAnswersFile = new File(this.pathToAnswersFile);
-        ExamAndAnswers examAndAnswers = null;
+        ExamAndAnswers examAndAnswers=new ExamAndAnswers();
             try {
-
-                    examAndAnswers = mapper.readValue(examAnswersFile, ExamAndAnswers.class);
-////                System.out.println("Student: " + examTake.getStudent().getName() + " " + examTake.getStudent().getSurname());
-//                    System.out.println("Exam: " + examAndAnswers);
-//                    System.out.println("Answers:");
-//                    List<Answer> answers = examAndAnswers.getAnswers();
-//                    answers.forEach(ans -> System.out.println(ans.getQuestion() + ": " + ans.getAnswer()));
+                examAndAnswers = mapper.readValue(examAnswersFile, ExamAndAnswers.class);
+                System.out.println(examAndAnswers);
             }
             catch (JsonMappingException e) {
                 e.printStackTrace();
@@ -44,30 +42,45 @@ public class DataActions {
             catch (IOException e) {
                 e.printStackTrace();
             }
-
         return examAndAnswers;
     }
 
-    public void writeExamAnswersData(int examId, List<Answer> examAnswers){
-
-    }
-
-    public ExamAndAnswers getExamAndAnswers(int examId){
-
-        return null;
-    }
-
-    public static List<File> getFolderFilesList(final File folder) {
-        List<File> fileList = new ArrayList<>();
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                getFolderFilesList(fileEntry);
-            } else {
-//                System.out.println(fileEntry.getName());
-                fileList.add(fileEntry);
+    public void writeExamAndAnswers(ExamAndAnswers examAnswers){
+        ObjectMapper mapper= new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        File examAnswersFile = new File(this.pathToAnswersFile);
+        if (!examAnswersFile.exists()){
+            try {
+                examAnswersFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-        return fileList;
+
+        try {
+            //File examAnswersFile = new File(this.pathToAnswersFile);
+            mapper.writeValue(examAnswersFile, examAnswers);
+        }
+        catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+//    public static List<File> getFolderFilesList(final File folder) {
+//        List<File> fileList = new ArrayList<>();
+//        for (final File fileEntry : folder.listFiles()) {
+//            if (fileEntry.isDirectory()) {
+//                getFolderFilesList(fileEntry);
+//            } else {
+//                fileList.add(fileEntry);
+//            }
+//        }
+//        return fileList;
+//    }
 
 }

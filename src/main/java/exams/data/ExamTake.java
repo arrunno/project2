@@ -6,21 +6,19 @@ import java.util.List;
 
 public class ExamTake implements Serializable{
 
-    protected Student student;
+//    protected Student student;
+    protected String examinationDate;
     protected Exam exam;
     protected List<Answer> answers = new ArrayList<>();
 
     public ExamTake(){
     }
 
-    public ExamTake(Student student, Exam exam, List<Answer> answers) {
-        this.student = student;
+    public ExamTake(/*Student student,*/ Exam exam, List<Answer> answers, String examinationDate) {
+//        this.student = student;
+        this.examinationDate = examinationDate;
         this.exam = exam;
         this.answers = answers;
-    }
-
-    public Student getStudent() {
-        return student;
     }
 
     public Exam getExam() {
@@ -31,10 +29,16 @@ public class ExamTake implements Serializable{
         return answers;
     }
 
+    public String getExaminationDate() { return this.examinationDate;}
+
+//    public Integer getExamId(){
+//        return this.exam.getId();
+//    }
+
     @Override
     public String toString() {
         return "ExamTake{" +
-                "student=" + student +
+                ", examinationDate=" + examinationDate +
                 ", exam=" + exam +
                 ", answers=" + answers +
                 '}';

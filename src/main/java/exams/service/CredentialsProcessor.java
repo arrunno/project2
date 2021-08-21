@@ -1,10 +1,5 @@
 package exams.service;
 
-import exams.data.IntructorsCredentialsData;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CredentialsProcessor implements CredentialsService {
