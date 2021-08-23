@@ -1,0 +1,31 @@
+{
+  "student" : {
+    "id" : 1257,
+    "name" : "Jane",
+    "surname" : "Janyte"
+  },
+  "examTakes" : {
+    "124" : {
+      "examinationDate" : [ 2021, 8, 23, 12, 53, 10, 636160400 ],
+      "exam" : {
+        "id" : 124,
+        "courseName" : "Geografija",
+        "type" : "Testas"
+      },
+      "answers" : [ {
+        "question" : 1,
+        "answer" : "b"
+      }, {
+        "question" : 2,
+        "answer" : "b"
+      }, {
+        "question" : 3,
+        "answer" : "d"
+      }, {
+        "question" : 4,
+        "answer" : "d"
+      } ],
+      "grade" : 8
+    }
+  }
+}

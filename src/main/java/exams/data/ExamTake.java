@@ -1,24 +1,25 @@
 package exams.data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExamTake implements Serializable{
 
-//    protected Student student;
-    protected String examinationDate;
+    protected LocalDateTime examinationDate;
     protected Exam exam;
     protected List<Answer> answers = new ArrayList<>();
+    protected int grade;
 
     public ExamTake(){
     }
 
-    public ExamTake(/*Student student,*/ Exam exam, List<Answer> answers, String examinationDate) {
-//        this.student = student;
+    public ExamTake(Exam exam, List<Answer> answers, LocalDateTime examinationDate, int grade) {
         this.examinationDate = examinationDate;
         this.exam = exam;
         this.answers = answers;
+        this.grade= grade;
     }
 
     public Exam getExam() {
@@ -29,11 +30,15 @@ public class ExamTake implements Serializable{
         return answers;
     }
 
-    public String getExaminationDate() { return this.examinationDate;}
+    public LocalDateTime getExaminationDate() { return this.examinationDate; }
 
-//    public Integer getExamId(){
-//        return this.exam.getId();
-//    }
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
 
     @Override
     public String toString() {

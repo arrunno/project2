@@ -1,0 +1,59 @@
+{
+  "student" : {
+    "id" : 1256,
+    "name" : "Vardenis",
+    "surname" : "Pavardenis"
+  },
+  "examTakes" : {
+    "123" : {
+      "examinationDate" : [ 2021, 8, 23, 13, 53, 49, 699617600 ],
+      "exam" : {
+        "id" : 123,
+        "courseName" : "OOP Pagrindai",
+        "type" : "Testas"
+      },
+      "answers" : [ {
+        "question" : 1,
+        "answer" : "b"
+      }, {
+        "question" : 2,
+        "answer" : "c"
+      }, {
+        "question" : 3,
+        "answer" : "q"
+      }, {
+        "question" : 4,
+        "answer" : "b"
+      }, {
+        "question" : 5,
+        "answer" : "c"
+      }, {
+        "question" : 6,
+        "answer" : "d"
+      } ],
+      "grade" : 8
+    },
+    "124" : {
+      "examinationDate" : [ 2021, 8, 23, 19, 15, 40, 121795100 ],
+      "exam" : {
+        "id" : 124,
+        "courseName" : "Geografija",
+        "type" : "Testas"
+      },
+      "answers" : [ {
+        "question" : 1,
+        "answer" : "b"
+      }, {
+        "question" : 2,
+        "answer" : "c"
+      }, {
+        "question" : 3,
+        "answer" : "d"
+      }, {
+        "question" : 4,
+        "answer" : "d"
+      } ],
+      "grade" : 10
+    }
+  }
+}

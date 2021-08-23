@@ -1,0 +1,39 @@
+{
+  "exams" : [ {
+    "exam" : {
+      "id" : 123,
+      "courseName" : "OOP Pagrindai",
+      "type" : "Testas"
+    },
+    "student" : {
+      "id" : 1256,
+      "name" : "Vardenis",
+      "surname" : "Pavardenis"
+    },
+    "grade" : 8
+  }, {
+    "exam" : {
+      "id" : 124,
+      "courseName" : "Geografija",
+      "type" : "Testas"
+    },
+    "student" : {
+      "id" : 1256,
+      "name" : "Vardenis",
+      "surname" : "Pavardenis"
+    },
+    "grade" : 10
+  }, {
+    "exam" : {
+      "id" : 124,
+      "courseName" : "Geografija",
+      "type" : "Testas"
+    },
+    "student" : {
+      "id" : 1257,
+      "name" : "Jane",
+      "surname" : "Janyte"
+    },
+    "grade" : 8
+  } ]
+}

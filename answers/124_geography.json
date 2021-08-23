@@ -1,0 +1,20 @@
+{
+  "exam" : {
+    "id" : 124,
+    "courseName" : "Geografija",
+    "type" : "testas"
+  },
+  "answers" : [ {
+    "question" : 1,
+    "answer" : "b"
+  }, {
+    "question" : 2,
+    "answer" : "c"
+  }, {
+    "question" : 3,
+    "answer" : "d"
+  }, {
+    "question" : 4,
+    "answer" : "d"
+  }]
+}

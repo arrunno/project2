@@ -8,8 +8,8 @@ import java.util.Map;
 public class RegisteredUsers {
 
     private static Map<Integer, RegisteredUserInterface> registeredStudentsMap = new HashMap<>() {{
-            put(1256,new Student(1256, "Vardenis", "Pavardenis", DigestUtils.sha256Hex("stuvar")));
-            put(1257,new Student(1257, "Jane", "Janyte",DigestUtils.sha256Hex("stujan")));
+            put(1256,new Student(1256, "Vardenis", "Pavardenis", "stuvar"));
+            put(1257,new Student(1257, "Jane", "Janyte","stujan"));
     }};
 
 

@@ -18,6 +18,8 @@ public class Login {
 
     public static boolean checkPassword(String password, RegisteredUserInterface regUser){
         String encodedPassword = DigestUtils.sha256Hex(password);
+//        System.out.println("inp passw: " + encodedPassword);
+//        System.out.println("sys pwd: " + regUser.getPassword());
         return encodedPassword.equals(regUser.getPassword());
     }
 
@@ -26,8 +28,16 @@ public class Login {
     }
 
     public static Student getLoggedInStudent(int studentId, String password){
+
         Map<Integer, RegisteredUserInterface> regUsers = RegisteredUsers.getRegisteredStudentsMap();
         RegisteredUserInterface loggedInStudent = RegisteredUsers.getRegisteredStudentsMap().get(studentId);
+        if(loggedInStudent == null){
+            throw new UserNotFoundException("Vartotojas nerastas, registruokites");}
+
+        if(loggedInStudent != null && (!DigestUtils.sha256Hex(password).equals(loggedInStudent.getPassword())))
+            throw new BadPasswordException("Blogas slaptazodis, pameginkite dar karta");
+
+//        System.out.println(loggedInStudent);
         return (Student) loggedInStudent;
     }
 

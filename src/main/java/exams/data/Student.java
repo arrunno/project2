@@ -11,7 +11,7 @@ public class Student implements Serializable, RegisteredUserInterface {
     protected String surname;
     protected String password;
 
-    public Student(){}
+    public Student() {}
 
     public Student(Integer id, String name, String surname, String password) {
         this.id = id;

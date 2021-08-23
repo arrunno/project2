@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import exams.ExamsMain;
 import exams.data.Answer;
 import exams.data.ExamAndAnswers;
 
@@ -16,25 +17,25 @@ public class DataActions {
 
     private String pathToExamsDirectory;
     private String pathToAnswersFile;
-    private ExamAndAnswers examAndAnswers;
+//    private ExamAndAnswers examAndAnswers;
 
-    public DataActions(String pathToExamsDirectory, String pathToAnswersFile) {
-        this.pathToExamsDirectory = pathToExamsDirectory;
-        this.pathToAnswersFile = pathToAnswersFile;
+    public DataActions() {
+        this.pathToExamsDirectory = ExamsMain.getExamsPath();
+        this.pathToAnswersFile = ExamsMain.getAnswersPath() + "124_geography.json";
     }
 
     public void setPathToAnswersFile(String pathToAnswersFile) {
         this.pathToAnswersFile = pathToAnswersFile;
     }
 
-    public ExamAndAnswers readExamAndAnswers(){
+    public ExamAndAnswers readExamAndAnswers(String answersFile){
         ObjectMapper mapper= new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        File examAnswersFile = new File(this.pathToAnswersFile);
+        File examAnswersFile = new File(ExamsMain.getAnswersPath() + answersFile);
         ExamAndAnswers examAndAnswers=new ExamAndAnswers();
             try {
                 examAndAnswers = mapper.readValue(examAnswersFile, ExamAndAnswers.class);
-                System.out.println(examAndAnswers);
+//                System.out.println(examAndAnswers);
             }
             catch (JsonMappingException e) {
                 e.printStackTrace();
@@ -71,16 +72,5 @@ public class DataActions {
         }
     }
 
-//    public static List<File> getFolderFilesList(final File folder) {
-//        List<File> fileList = new ArrayList<>();
-//        for (final File fileEntry : folder.listFiles()) {
-//            if (fileEntry.isDirectory()) {
-//                getFolderFilesList(fileEntry);
-//            } else {
-//                fileList.add(fileEntry);
-//            }
-//        }
-//        return fileList;
-//    }
 
 }

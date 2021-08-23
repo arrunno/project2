@@ -13,16 +13,17 @@ public class StudentsExams implements Serializable {
     public StudentsExams(){
     }
 
-    public StudentsExams(Student student, List<ExamTake> examTakesList) {
+    public StudentsExams(Student student, Map<Integer, ExamTake> examTakes) {
         this.student = student;
-//        this.examTakes = examTakes;
-//        this.examTakes = examTakes.stream()
-//                .collect(Collectors.toMap(examTake -> examTake.getExam().getId(), Add examTake -> examTake));
-        for(ExamTake el : examTakesList){
-            examTakes.put(el.getExam().getId(), el);
-        }
+        this.examTakes = examTakes;
+    }
 
-        System.out.println(this.examTakes);
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public void setExamTakes(Map<Integer, ExamTake> examTakes) {
+        this.examTakes = examTakes;
     }
 
     public Student getStudent() {
@@ -35,10 +36,9 @@ public class StudentsExams implements Serializable {
 
     @Override
     public String toString() {
-        return "ExamTake{" +
+        return "StudentExams{" +
                 "student=" + student +
-//                ", examTakes=" + examTakes +
-                ", takes=" + examTakes +
+                ", ExamTakes=" + examTakes +
                 '}';
     }
 }

@@ -65,6 +65,15 @@ public class PreparedExams {
        put("geography_124", geography_124);
     }};
 
+    public static Exam getExamObject(int examId){
+        Exam res = null;
+        switch(examId){
+            case 123 -> { res = new Exam(123,"OOP Pagrindai", "Testas");}
+            case 124 -> { res = new Exam(124, "Geografija", "Testas"); }
+        }
+        return res;
+    }
+
     public static String[] getOopBasics_123() {
         return oopBasics_123;
     }
