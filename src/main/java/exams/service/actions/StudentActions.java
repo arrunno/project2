@@ -14,36 +14,36 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class StudentActions {
-//    private String pathToExamsDirectory;
-//    private String pathToAnswersFile;
 
-    public StudentActions() {
-//        this.pathToExamsDirectory = pathToExamsDirectory;
-//        this.pathToAnswersFile = pathToAnswersFile;
-    }
+    private Student loggedInStudent;
 
-    public static void studentLogin(Scanner sc, String message) {
+    public StudentActions() {}
+
+    public void studentLogin(Scanner sc, String message) {
         if (!message.isEmpty()) {
             System.out.println(message);
         }
         System.out.println("   Prisijungimas   ");
-        int studentId = checkStudentId(sc);
-        String password = checkStudentPassword(sc, studentId);
-        Student loggedInStudent = Login.getLoggedInStudent(studentId, password);
-        chooseExam(sc, loggedInStudent, "");
-//        System.out.println("Logged in student: " + loggedInStudent);
 
+        if (this.loggedInStudent == null){
+            int studentId = checkStudentId(sc);
+            String password = checkStudentPassword(sc, studentId);
+            this.loggedInStudent = Login.getLoggedInStudent(studentId, password);
     }
 
-    public static int checkStudentId(Scanner sc){
+        chooseExam(sc, this.loggedInStudent, "");
+//        System.out.println("Logged in student: " + loggedInStudent);
+    }
+
+    public int checkStudentId(Scanner sc){
         int studentId = utils.getInpInt(sc, "Iveskite studento koda");
         if(!Login.getRegisteredStudents().containsKey(studentId)) {
-            studentLogin(sc, "vartotojas nerastas, bandykite dar karta");
+            this.studentLogin(sc, "vartotojas nerastas, bandykite dar karta");
         }
         return studentId;
     }
 
-    public static String checkStudentPassword(Scanner sc, int studentId){
+    public String checkStudentPassword(Scanner sc, int studentId){
         String password = utils.getInpString(sc, "iveskite slaptazodi");
         if(!Login.checkPassword(password, Login.getRegisteredStudents().get(studentId))){
             studentLogin(sc, "Blogas slaptazodis, bandykite dar karta");
@@ -73,7 +73,7 @@ public class StudentActions {
     public static void takeExam(Scanner sc, Student loggedInStudent, Exam examNow){
 
         String[] examQuestions = null;
-        String answersDirectory = "answers";
+//        String answersDirectory = "answers";
         String pathToAnswersFile = "";
         int examId = examNow.getId();
 
@@ -99,28 +99,31 @@ public class StudentActions {
 //            System.out.println(thisExaminationTime);
 
             StudentsExams studentsExams = mapper.readValue(studentExamsFile, StudentsExams.class);
+
             if (studentsExams == null){
                 //// create the whole object
             }
 
 //            System.out.println("student exams: "+studentsExams);
 
-            ExamTake examTake= studentsExams.getExamTakes().get(examId);
+            ExamTake examTake = studentsExams.getExamTakes().get(examId);
             Map<Integer, ExamTake> newExamTakes = new HashMap<>();
-            if(examTake != null && studentsExams.getExamTakes().size() > 1) {
+
+            if(examTake != null) { // && studentsExams.getExamTakes().size() >= 1) {
 
                 LocalDateTime earlierExaminationTime = examTake.getExaminationDate();
 
                 long timeDiff = earlierExaminationTime.until(thisExaminationTime, ChronoUnit.MINUTES);
-                if(timeDiff < 3){
+                if (timeDiff < 3) {
                     chooseExam(sc, loggedInStudent, "Pabandykite vėliau, praejo tik " + timeDiff + " minutes nuo paskutinio laikymo. Turi praeiti maziausiai 3 minutes.");
                 }
+            }
                 //// Lets save other Taken exams info
                 studentsExams.getExamTakes().forEach((key,val) ->{
                     if(key != examId)
                         newExamTakes.put(key, val);
                 });
-            }
+
             //// Get students answers
             List<Answer> studentAnswersL = new ArrayList<>();
             for(int i = 0; i < examQuestions.length; i++){
@@ -141,31 +144,17 @@ public class StudentActions {
             try {
                 mapper.writeValue(studentExamsFile, studentsExams);
                 if (ExamsMain.executionMode.equals(RunMode.DEBUG))
-                    System.out.println("written");
+                    System.out.println("Exam data was written");
             } catch (Exception e){
                 System.out.println("Error. Could not write to file: " + e.getMessage());
             }
 
-//            System.out.println("right answers");
-//            System.out.println(rightAnswers.getAnswers());
-
-            String examStatus = grade > 6 ? "Islaikytas" : "Neislaikytas";
+            String examStatus = TeacherActions.hasStudentPassedExam(grade) ? "Islaikytas" : "Neislaikytas";
             System.out.println("Egzaminas " + examStatus);
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-//    public void TakeExam(Scanner sc, int examId, int studentId){
-//        StudentDataActions dataActions = new StudentDataActions(this.pathToExamsDirectory);
-//        System.out.println("Students files: " + dataActions.getStudentFilesList());
-//
-//        StudentsExams examsInfo = dataActions.getStudentExamsData(studentId);
-//        System.out.println(examsInfo);
-//
-//
-//    }
 }

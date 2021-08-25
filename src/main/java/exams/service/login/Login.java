@@ -32,7 +32,7 @@ public class Login {
         Map<Integer, RegisteredUserInterface> regUsers = RegisteredUsers.getRegisteredStudentsMap();
         RegisteredUserInterface loggedInStudent = RegisteredUsers.getRegisteredStudentsMap().get(studentId);
         if(loggedInStudent == null){
-            throw new UserNotFoundException("Vartotojas nerastas, registruokites");}
+            throw new UserNotFoundException("Toks vartotojas nerastas");}
 
         if(loggedInStudent != null && (!DigestUtils.sha256Hex(password).equals(loggedInStudent.getPassword())))
             throw new BadPasswordException("Blogas slaptazodis, pameginkite dar karta");
@@ -41,7 +41,6 @@ public class Login {
         return (Student) loggedInStudent;
     }
 
-    // (1256,new Student(1256, "Vardenis", "Pavardenis", DigestUtils.sha256Hex("stuvar")));
 
 
 }

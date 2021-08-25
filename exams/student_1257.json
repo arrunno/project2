@@ -5,8 +5,36 @@
     "surname" : "Janyte"
   },
   "examTakes" : {
+    "123" : {
+      "examinationDate" : [ 2021, 8, 25, 16, 59, 51, 485571200 ],
+      "exam" : {
+        "id" : 123,
+        "courseName" : "OOP Pagrindai",
+        "type" : "Testas"
+      },
+      "answers" : [ {
+        "question" : 1,
+        "answer" : "a"
+      }, {
+        "question" : 2,
+        "answer" : "a"
+      }, {
+        "question" : 3,
+        "answer" : "a"
+      }, {
+        "question" : 4,
+        "answer" : "d"
+      }, {
+        "question" : 5,
+        "answer" : "c"
+      }, {
+        "question" : 6,
+        "answer" : "d"
+      } ],
+      "grade" : 5
+    },
     "124" : {
-      "examinationDate" : [ 2021, 8, 23, 12, 53, 10, 636160400 ],
+      "examinationDate" : [ 2021, 8, 25, 16, 50, 55, 740834300 ],
       "exam" : {
         "id" : 124,
         "courseName" : "Geografija",
@@ -17,13 +45,13 @@
         "answer" : "b"
       }, {
         "question" : 2,
-        "answer" : "b"
+        "answer" : "c"
       }, {
         "question" : 3,
         "answer" : "d"
       }, {
         "question" : 4,
-        "answer" : "d"
+        "answer" : "c"
       } ],
       "grade" : 8
     }

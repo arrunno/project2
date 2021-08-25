@@ -1,5 +1,6 @@
 package exams.service;
 
+import exams.ExamsMain;
 import exams.data.*;
 import exams.service.actions.TeacherActions;
 import exams.service.actions.StudentActions;
@@ -37,7 +38,7 @@ public class ActionProcessor {
         int firstChoice = utils.getInpInt(sc, "");
         switch (firstChoice) {
             case 1 -> this.teacherActions.teacherMenu1(sc, "");
-            case 2 -> StudentActions.studentLogin(sc, "");
+            case 2 -> this.studentActions.studentLogin(sc, "");
             case 3 -> studentRegistrationMenu(sc);
             case 0 -> System.exit(10);
             default -> {
@@ -75,9 +76,11 @@ public class ActionProcessor {
                 if(password.equals(password2)) {
                     RegisteredUsers.registerStudent(studentId, newUserInfo[1], newUserInfo[2], password);
                     System.out.println("Studentas sekmingai uzregistruotas");
-                    Student loggedInStudent = Login.getLoggedInStudent(studentId,password);
-                    StudentActions.chooseExam(sc,loggedInStudent, "");
-//                    System.out.println(RegisteredUsers.getRegisteredStudentsMap());
+//                    Student loggedInStudent = Login.getLoggedInStudent(studentId,password);
+//                    StudentActions.chooseExam(sc,loggedInStudent);
+                    if(ExamsMain.executionMode.equals(RunMode.DEBUG)){
+                        System.out.println(RegisteredUsers.getRegisteredStudentsMap());
+                    }
                 } else {
                     System.out.println("slaptazodziai nesutapma, pakartokite slaptazodziu vedima");
                     registerStudent( sc, newUserInfo);

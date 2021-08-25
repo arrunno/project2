@@ -13,24 +13,6 @@ public class RegisteredUsers {
     }};
 
 
-    private Map<Integer, RegisteredUserInterface> registeredTeachersMap;
-
-//    public RegisteredUsers() {
-//        this.registerStudents();
-//        this.registerTeachers();
-//    }
-//
-//    public void registerStudents() {
-//        this.registeredStudentsMap = new HashMap<>();
-//        this.registeredStudentsMap.put(1256,new Student(1256, "Vardenis", "Pavardenis", DigestUtils.sha256Hex("stuvar")));
-//        this.registeredStudentsMap.put(1257,new Student(1257, "Jane", "Janyte",DigestUtils.sha256Hex("stujan")));
-//    }
-//
-//    public void registerTeachers() {
-//        this.registeredTeachersMap = new HashMap<>();
-//        this.registeredTeachersMap.put(3333, new Teacher(3333, "teacher"));
-//    }
-
     public static boolean registerStudent(int userId, String name, String surname, String password){
         if(!registeredStudentsMap.containsKey(userId)) {
             registeredStudentsMap.put(userId, new Student(userId, name, surname, password));
@@ -50,11 +32,4 @@ public class RegisteredUsers {
         this.registeredStudentsMap = registeredStudentsMap;
     }
 
-    public Map<Integer, RegisteredUserInterface> getRegisteredTeachersMap() {
-        return registeredTeachersMap;
-    }
-
-    public void setRegisteredTeachersMap(Map<Integer, RegisteredUserInterface> registeredTeachersMap) {
-        this.registeredTeachersMap = registeredTeachersMap;
-    }
 }

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import exams.ExamsMain;
 import exams.data.*;
 import exams.service.ActionProcessor;
+import exams.service.login.BadPasswordException;
+import exams.service.login.UserNotFoundException;
 import exams.utils.utils;
 
 import java.io.File;
@@ -20,10 +22,46 @@ import java.util.Scanner;
 
 public class TeacherActions {
 
+    private boolean teacherLoggedIn = false;
+
+    public void checkTeachersId(int teachersId){
+
+        if (teachersId != 3333) {
+            throw new UserNotFoundException("Tokio destytojo nera, bandykite dar karta");
+        }
+    }
+
+    public void checkTeachersPassword(String teachersPassword){
+
+        if(!teachersPassword.equals("3333")){
+            throw new BadPasswordException("Blogas slaptazodis, bandykite dar karta");
+        }
+    }
+
     public void teacherMenu1(Scanner sc, String message) throws IOException {
         if (!message.isEmpty()) {
             System.out.println(message);
         }
+
+        System.out.println("Destytojo meniu");
+
+        if(!this.teacherLoggedIn) {
+            try {
+                int teachersId = utils.getInpInt(sc, "Iveskite asmens koda");
+                this.checkTeachersId(teachersId);
+            } catch (UserNotFoundException e) {
+                teacherMenu1(sc, e.getMessage());
+            }
+
+            try {
+                String teachersPassword = utils.getInpString(sc, "Iveskite slaptazodi");
+                this.checkTeachersPassword(teachersPassword);
+            } catch (BadPasswordException e) {
+                teacherMenu1(sc, e.getMessage());
+            }
+        }
+         this.teacherLoggedIn = true;
+
         System.out.println(" ___________________________________");
         System.out.println("|          Destytojo meniu          |");
         System.out.println("| 1 - Patikrinti rezultatus         |");
@@ -104,6 +142,7 @@ public class TeacherActions {
         ExamsStudentsGrades examsStudentsGrades = new ExamsStudentsGrades(examStudentGradeL);
 
         File examRezFile = new File(ExamsMain.getAnswersPath() + "examResults.json");
+
         if (!examRezFile.exists()) {
             try {
                 examRezFile.createNewFile();
@@ -120,6 +159,14 @@ public class TeacherActions {
         } catch (
                 JsonMappingException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static boolean hasStudentPassedExam(int grade){
+        if (grade >= ExamsMain.passGrade) {
+            return true;
+        } else {
+            return false;
         }
     }
 

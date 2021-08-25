@@ -22,7 +22,19 @@
       "name" : "Vardenis",
       "surname" : "Pavardenis"
     },
-    "grade" : 10
+    "grade" : 0
+  }, {
+    "exam" : {
+      "id" : 123,
+      "courseName" : "OOP Pagrindai",
+      "type" : "Testas"
+    },
+    "student" : {
+      "id" : 1257,
+      "name" : "Jane",
+      "surname" : "Janyte"
+    },
+    "grade" : 5
   }, {
     "exam" : {
       "id" : 124,

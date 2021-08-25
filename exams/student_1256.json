@@ -34,7 +34,7 @@
       "grade" : 8
     },
     "124" : {
-      "examinationDate" : [ 2021, 8, 23, 19, 15, 40, 121795100 ],
+      "examinationDate" : [ 2021, 8, 25, 17, 50, 30, 622495200 ],
       "exam" : {
         "id" : 124,
         "courseName" : "Geografija",
@@ -42,18 +42,18 @@
       },
       "answers" : [ {
         "question" : 1,
-        "answer" : "b"
+        "answer" : "a"
       }, {
         "question" : 2,
-        "answer" : "c"
+        "answer" : "b"
       }, {
         "question" : 3,
-        "answer" : "d"
+        "answer" : "c"
       }, {
         "question" : 4,
         "answer" : "d"
       } ],
-      "grade" : 10
+      "grade" : 3
     }
   }
 }

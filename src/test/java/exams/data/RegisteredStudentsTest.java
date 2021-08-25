@@ -15,7 +15,7 @@ class RegisteredStudentsTest {
     }
 
     @Test
-    void registerStudentWithUnique() {
+    void registerStudentWithUniqueId() {
         boolean registration = regUsers.registerStudent(999999, "Petras", "Petraitis", "slaptazodis");
         assertTrue(registration);
     }
